@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Поддержать OreBox | Донат для Minecraft сервера</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Minecraft&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --mc-green: #3CB043;
+            --mc-dark-green: #2A7A2E;
+            --mc-gold: #FFD700;
+            --mc-diamond: #4EE2EC;
+            --mc-redstone: #C51111;
+            --mc-emerald: #50C878;
+            --mc-purple: #A020F0;
+            --mc-blue: #4169E1;
+            --mc-gray: #808080;
+            --mc-orange: #FF7F00;
+            --mc-dark: #1a1a1a;
+            --mc-light: #f5f5f5;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #121212;
+            color: #f0f0f0;
+            line-height: 1.6;
+            background-image: url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            min-height: 100vh;
+        }
+        
+        .overlay {
+            background-color: rgba(18, 18, 18, 0.92);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background: linear-gradient(to right, rgba(26, 26, 26, 0.95), rgba(44, 130, 48, 0.2));
+            padding: 20px 0;
+            border-bottom: 3px solid var(--mc-green);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(5px);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo-icon {
+            color: var(--mc-green);
+            font-size: 32px;
+        }
+        
+        .logo h1 {
+            font-family: 'Minecraft', monospace;
+            font-size: 28px;
+            background: linear-gradient(90deg, var(--mc-green), var(--mc-diamond));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+        
+        nav a {
+            color: #f0f0f0;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            font-size: 18px;
+        }
+        
+        nav a:hover {
+            color: var(--mc-green);
+        }
+        
+        .hero {
+            padding: 80px 0 50px;
+            text-align: center;
+        }
+        
+        .hero h2 {
+            font-size: 42px;
+            margin-bottom: 20px;
+            color: #fff;
+            font-family: 'Minecraft', monospace;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
+        }
+        
+        .hero p {
+            font-size: 20px;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            color: #ccc;
+        }
+        
+        .mc-button {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--mc-green), var(--mc-dark-green));
+            color: white;
+            padding: 14px 32px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 18px;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-family: 'Minecraft', monospace;
+            box-shadow: 0 4px 15px rgba(60, 176, 67, 0.3);
+        }
+        
+        .mc-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(60, 176, 67, 0.5);
+        }
+        
+        .mc-button:active {
+            transform: translateY(1px);
+        }
+        
+        .donation-tiers {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 50px;
+            color: #fff;
+            font-family: 'Minecraft', monospace;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--mc-green), var(--mc-diamond));
+        }
+        
+        .tiers-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .tier-card {
+            background: linear-gradient(145deg, rgba(50, 50, 50, 0.9), rgba(30, 30, 30, 0.9));
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            border-top: 5px solid;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .tier-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+        }
+        
+        .tier-header {
+            padding: 25px 20px;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .tier-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
+            z-index: 0;
+        }
+        
+        .tier-name {
+            font-size: 26px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-family: 'Minecraft', monospace;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .tier-price {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .tier-period {
+            font-size: 16px;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .popular-badge {
+            position: absolute;
+            top: 15px;
+            right: -30px;
+            background: linear-gradient(45deg, var(--mc-gold), #FFA500);
+            color: #000;
+            padding: 5px 30px;
+            font-weight: bold;
+            transform: rotate(45deg);
+            font-size: 14px;
+            z-index: 2;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        .tier-features {
+            padding: 25px 20px;
+            background-color: rgba(25, 25, 25, 0.8);
+        }
+        
+        .tier-features ul {
+            list-style: none;
+        }
+        
+        .tier-features li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+        }
+        
+        .tier-features li i {
+            margin-right: 10px;
+            width: 20px;
+        }
+        
+        .tier-action {
+            padding: 20px;
+            text-align: center;
+        }
+        
+        /* Цвета для разных уровней доната */
+        .patreon { border-color: var(--mc-purple); }
+        .patreon .tier-header { background: linear-gradient(135deg, rgba(160, 32, 240, 0.9), rgba(128, 0, 128, 0.9)); }
+        
+        .mvp { border-color: var(--mc-redstone); }
+        .mvp .tier-header { background: linear-gradient(135deg, rgba(197, 17, 17, 0.9), rgba(139, 0, 0, 0.9)); }
+        
+        .manager { border-color: var(--mc-emerald); }
+        .manager .tier-header { background: linear-gradient(135deg, rgba(80, 200, 120, 0.9), rgba(0, 100, 0, 0.9)); }
+        
+        .legend { border-color: var(--mc-gold); }
+        .legend .tier-header { background: linear-gradient(135deg, rgba(255, 215, 0, 0.9), rgba(218, 165, 32, 0.9)); }
+        
+        .hero-tier { border-color: var(--mc-diamond); }
+        .hero-tier .tier-header { background: linear-gradient(135deg, rgba(78, 226, 236, 0.9), rgba(0, 191, 255, 0.9)); }
+        
+        .donator { border-color: var(--mc-blue); }
+        .donator .tier-header { background: linear-gradient(135deg, rgba(65, 105, 225, 0.9), rgba(0, 0, 205, 0.9)); }
+        
+        .vip { border-color: var(--mc-green); }
+        .vip .tier-header { background: linear-gradient(135deg, rgba(60, 176, 67, 0.9), rgba(34, 139, 34, 0.9)); }
+        
+        .nitro { border-color: #FF0055; }
+        .nitro .tier-header { background: linear-gradient(135deg, rgba(255, 0, 85, 0.9), rgba(199, 21, 133, 0.9)); }
+        
+        .trainee { border-color: var(--mc-orange); }
+        .trainee .tier-header { background: linear-gradient(135deg, rgba(255, 127, 0, 0.9), rgba(255, 69, 0, 0.9)); }
+        
+        .highlight {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+            margin-left: 5px;
+        }
+        
+        footer {
+            background: linear-gradient(to right, rgba(26, 26, 26, 0.95), rgba(30, 30, 30, 0.95));
+            padding: 50px 0 30px;
+            margin-top: 60px;
+            border-top: 3px solid var(--mc-green);
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .footer-section h3 {
+            font-size: 22px;
+            margin-bottom: 20px;
+            color: var(--mc-green);
+            font-family: 'Minecraft', monospace;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--mc-green);
+        }
+        
+        .payment-methods {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .payment-method {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #999;
+            font-size: 14px;
+        }
+        
+        .server-info {
+            padding: 60px 0;
+            text-align: center;
+            background-color: rgba(30, 30, 30, 0.7);
+            border-radius: 15px;
+            margin-top: 40px;
+            backdrop-filter: blur(5px);
+        }
+        
+        .server-info h3 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+        
+        .server-ip {
+            font-family: 'Minecraft', monospace;
+            background: linear-gradient(135deg, rgba(60, 176, 67, 0.2), rgba(78, 226, 236, 0.2));
+            padding: 15px 30px;
+            border-radius: 8px;
+            display: inline-block;
+            font-size: 24px;
+            color: #fff;
+            border: 2px solid var(--mc-green);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .server-ip:hover {
+            background: linear-gradient(135deg, rgba(60, 176, 67, 0.4), rgba(78, 226, 236, 0.4));
+            transform: scale(1.05);
+        }
+        
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .hero h2 {
+                font-size: 32px;
+            }
+            
+            .hero p {
+                font-size: 18px;
+            }
+            
+            .tiers-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-title {
+                font-size: 28px;
+            }
+        }
+        
+        /* Анимация появления карточек */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .tier-card {
+            animation: fadeInUp 0.5s ease-out;
+        }
+        
+        .tier-card:nth-child(2) { animation-delay: 0.1s; }
+        .tier-card:nth-child(3) { animation-delay: 0.2s; }
+        .tier-card:nth-child(4) { animation-delay: 0.3s; }
+        .tier-card:nth-child(5) { animation-delay: 0.4s; }
+        .tier-card:nth-child(6) { animation-delay: 0.5s; }
+        .tier-card:nth-child(7) { animation-delay: 0.6s; }
+        .tier-card:nth-child(8) { animation-delay: 0.7s; }
+        .tier-card:nth-child(9) { animation-delay: 0.8s; }
+        
+        .price-list {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .price-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            border-left: 4px solid;
+        }
+        
+        .mc-counter {
+            display: inline-block;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 5px 15px;
+            border-radius: 20px;
+            margin-top: 15px;
+            font-size: 14px;
+            color: var(--mc-gold);
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(60, 176, 67, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(60, 176, 67, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(60, 176, 67, 0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay">
+        <header>
+            <div class="container header-container">
+                <div class="logo">
+                    <i class="fas fa-cube logo-icon"></i>
+                    <h1>OreBox Minecraft</h1>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-home"></i> Главная</a></li>
+                        <li><a href="#tiers"><i class="fas fa-gem"></i> Привилегии</a></li>
+                        <li><a href="#"><i class="fas fa-info-circle"></i> О сервере</a></li>
+                        <li><a href="#"><i class="fas fa-question-circle"></i> Помощь</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+        
+        <section class="hero">
+            <div class="container">
+                <h2>Поддержите OreBox Minecraft сервер</h2>
+                <p>Ваша поддержка помогает развивать сервер, добавлять новые функции и улучшать игровой процесс для всех участников. Выберите подходящий уровень доната и получите уникальные привилегии в игре!</p>
+                
+                <div class="price-list">
+                    <div class="price-item patreon">Patreon - 39₽</div>
+                    <div class="price-item mvp">MVP - 59₽</div>
+                    <div class="price-item manager">Manager - 119₽</div>
+                    <div class="price-item legend">Legend - 179₽</div>
+                    <div class="price-item hero-tier">Hero - 229₽</div>
+                    <div class="price-item donator">Donator - 299₽</div>
+                    <div class="price-item vip">VIP - 349₽</div>
+                    <div class="price-item nitro">Nitro - 389₽</div>
+                    <div class="price-item trainee">Trainee - 499₽</div>
+                </div>
+                
+                <a href="#tiers" class="mc-button pulse">Выбрать привилегию</a>
+                <div class="mc-counter"><i class="fas fa-users"></i> 128 игроков уже поддержали сервер</div>
+            </div>
+        </section>
+        
+        <section class="donation-tiers" id="tiers">
+            <div class="container">
+                <h2 class="section-title">Уровни доната</h2>
+                <p style="text-align: center; max-width: 800px; margin: 0 auto 40px; color: #ccc; font-size: 18px;">Каждая привилегия дает уникальные возможности на сервере. Привилегии активируются навсегда после единоразовой оплаты!</p>
+                
+                <div class="tiers-container">
+                    <!-- Patreon -->
+                    <div class="tier-card patreon">
+                        <div class="tier-header">
+                            <div class="tier-name">Patreon</div>
+                            <div class="tier-price">39₽</div>
+                            <div class="tier-period">единоразово</div>
+                        </div>
+                        <div class="tier-features">
+                            <ul>
+                                <li><i class="fas fa-check" style="color: #A020F0;"></i> Доступ к Patreon-каналу</li>
+                                <li><i class="fas fa-check" style="color: #A020F0;"></i> Префикс <span class="highlight">[Patreon]</span></li>
+                                <li><i class="fas fa-check" style="color: #A020F0;"></i> Цветной ник в чате</li>
+                                <li><i class="fas fa-check" style="color: #A020F0;"></i> Возможность голосовать за нововведения</li>
+                                <li><i class="fas fa-check" style="color: #A020F0;"></i> Базовые эмоции в чате</li>
+                            </ul>
+                        </div>
+                        <div class="tier-action">
+                            <button class="mc-button" onclick="selectTier('Patreon', 39)">Купить за 39₽</button>
+                        </div>
+                    </div>
+                    
+                    <!-- MVP -->
+                    <div class="tier-card mvp">
+                        <div class="tier-header">
+                            <div class="tier-name">MVP</div>
+                            <div class="tier-price">59₽</div>
+                            <div class="tier-period">единоразово</div>
+                        </div>
+                        <div class="tier-features">
+                            <ul>
+                                <li><i class="fas fa-check" style="color: #C51111;"></i> Все привилегии Patreon</li>
+                                <li><i class="fas fa-check" style="color: #C51111;"></i> Префикс <span class="highlight">[MVP]</span> в чате</li>
+                                <li><i class="fas fa-check" style="color: #C51111;"></i> Доступ к команде /hat</li>
+                                <li><i class="fas fa-check" style="color: #C51111;"></i> Возможность летать в лобби</li>
+                                <li><i class="fas fa-check" style="color: #C51111;"></i> 2 дополнительных варпа</li>
+                            </ul>
+                        </div>
+                        <div class="tier-action">
+                            <button class="mc-button" onclick="selectTier('MVP', 59)">Купить за 59₽</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Manager -->
+                    <div class="tier-card manager">
+                        <div class="tier-header">
+                            <div class="tier-name">Manager</div>
+                            <div class="tier-price">119₽</div>
+                            <div class="tier-period">единоразово</div>
+                        </div>
+                        <div class="tier-features">
+                            <ul>
+                                <li><i class="fas fa-check" style="color: #50C878;"></i> Все привилегии MVP</li>
+                                <li><i class="fas fa-check" style="color: #50C878;"></i> Префикс <span class="highlight">[Manager]</span></li>
+                                <li><i class="fas fa-check" style="color: #50C878;"></i> Доступ к закрытому Discord-каналу</li>
+                                <li><i class="fas fa-check" style="color: #50C878;"></i> Право создавать ивенты</li>
+                                <li><i class="fas fa-check" style="color: #50C878;"></i> Расширенные права в Discord</li>
+                            </ul>
+                        </div>
+                        <div class="tier-action">
+                            <button class="mc-button" onclick="selectTier('Manager', 119)">Купить за 119₽</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Legend -->
+                    <div class="tier-card legend">
+                        <div class="tier-header">
+                            <div class="tier-name">Legend</div>
+                            <div class="tier-price">179₽</div>
+                            <div class="tier-period">единоразово</div>
+                        </div>
+                        <div class="tier-features">
+                            <ul>
+                                <li><i class="fas fa-check" style="color: #FFD700;"></i> Все привилегии Manager</li>
+                                <li><i class="fas fa-check" style="color: #FFD700;"></i> Уникальный префикс <span class="highlight">[Legend]</span></li>
+                                <li><i class="fas fa-check" style="color: #FFD700;"></i> Личный скин на сервере</li>
+                                <li><i class="fas fa-check" style="color: #FFD700;"></i> Возможность зайти на переполненный сервер</li>
+                                <li><i class="fas fa-check" style="color: #FFD700;"></i> Золотой значок в таблице лидеров</li>
+                            </ul>
+                        </div>
+                        <div class="tier-action">
+                            <button class="mc-button" onclick="selectTier('Legend', 179)">Купить за 179₽</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Hero -->
+                    <div class="tier-card hero-tier">
+                        <div class="tier-header">
+                            <div class="popular-badge">ПОПУЛЯРНО</div>
+                            <div class="tier-name">Hero</div>
+                            <div class="tier-price">229₽</div>
+                            <div class="tier-period">единоразово</div>
+                        </div>
+                        <div class="tier-features">
+                            <ul>
+                                <li><i class="fas fa-check" style="color: #4EE2EC;"></i> Все привилегии Legend</li>
+                                <li><i class="fas fa-check" style="color: #4EE2EC;"></i> Префикс <span class="highlight">[Hero]</span></li>
+                                <li><i class="fas fa-check" style="color: #4EE2EC;"></i> Доступ ко всем мини-играм</li>
+                                <li><i class="fas fa-check" style="color: #4EE2EC;"></i> Ежемесячный бонусный лутбокс</li>
+                                <li><i class="fas fa-check" style="color: #4EE2EC;"></i> Возможность создавать приватные миры</li>
+                            </ul>
+                        </div>
+                        <div class="tier-action">
+                            <button class="mc-button" onclick="selectTier('Hero', 229)">Купить за 229₽</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Donator -->
+                    <div class="tier-card donator">
+                        <div class="tier-header">
+                            <div class="tier-name">Donator</div>
+                            <div class="tier-price">299₽</div>
+                            <div class="tier-period">единоразово</div>
+                        </div>
+                        <div class="tier-features">
+                            <ul>
+                                <li><i class="fas fa-check" style="color: #4169E1;"></i> Все привилегии Hero</li>
+                                <li><i class="fas fa-check" style="color: #4169E1;"></i> Префикс <span class="highlight">[Donator]</span></li>
+                                <li><i class="fas fa-check" style="color: #4169E1;"></i> Возможность использовать /fly</li>
+                                <li><i class="fas fa-check" style="color: #4169E1;"></i> Доступ к специальным китам</li>
+                                <li><i class="fas fa-check" style="color: #4169E1;"></i> Увеличенный лимит домов</li>
+                            </ul>
+                        </div>
+                        <div class="tier-action">
+                            <button class="mc-button" onclick="selectTier('Donator', 299)">Купить за 299₽</button>
+                        </div>
+                    </div>
+                    
+                    <!-- VIP -->
+                    <div class="tier-card vip">
+                        <div class="tier-header">
+                            <div class="tier-name">VIP</div>
+                            <div class="tier-price">349₽</div>
+                            <div class="tier-period">единоразово</div>
+                        </div>
+                        <div class="tier-features">
+                            <ul>
+                                <li><i class="fas fa-check" style="color: #3CB043;"></i> Все привилегии Donator</li>
+                                <li><i class="fas fa-check" style="color: #3CB043;"></i> Префикс <span class="highlight">[VIP]</span></li>
+                                <li><i class="fas fa-check" style="color: #3CB043;"></i> Доступ к приватным ресурс-пакам</li>
+                                <li><i class="fas fa-check" style="color: #3CB043;"></i> Ускоренная регенерация</li>
+                                <li><i class="fas fa-check" style="color: #3CB043;"></i> Двойной дроп с мобов</li>
+                            </ul>
+                        </div>
+                        <div class="tier-action">
+                            <button class="mc-button" onclick="selectTier('VIP', 349)">Купить за 349₽</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Nitro -->
+                    <div class="tier-card nitro">
+                        <div class="tier-header">
+                            <div class="tier-name">Nitro</div>
+                            <div class="tier-price">389₽</div>
+                            <div class="tier-period">единоразово</div>
+                        </div>
+                        <div class="tier-features">
+                            <ul>
+                                <li><i class="fas fa-check" style="color: #FF0055;"></i> Все привилегии VIP</li>
+                                <li><i class="fas fa-check" style="color: #FF0055;"></i> Префикс <span class="highlight">[Nitro]</span></li>
+                                <li><i class="fas fa-check" style="color: #FF0055;"></i> Нитро-буст в Discord</li>
+                                <li><i class="fas fa-check" style="color: #FF0055;"></i> Личный эффект частиц</li>
+                                <li><i class="fas fa-check" style="color: #FF0055;"></i> Уникальный плащ в игре</li>
+                            </ul>
+                        </div>
+                        <div class="tier-action">
+                            <button class="mc-button" onclick="selectTier('Nitro', 389)">Купить за 389₽</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Trainee -->
+                    <div class="tier-card trainee">
+                        <div class="tier-header">
+                            <div class="popular-badge">ВЫСШАЯ</div>
+                            <div class="tier-name">Trainee</div>
+                            <div class="tier-price">499₽</div>
+                            <div class="tier-period">единоразово</div>
+                        </div>
+                        <div class="tier-features">
+                            <ul>
+                                <li><i class="fas fa-check" style="color: #FF7F00;"></i> Все привилегии Nitro</li>
+                                <li><i class="fas fa-check" style="color: #FF7F00;"></i> Префикс <span class="highlight">[Trainee]</span></li>
+                                <li><i class="fas fa-check" style="color: #FF7F00;"></i> Приоритетная техническая поддержка</li>
+                                <li><i class="fas fa-check" style="color: #FF7F00;"></i> Личный остров в SkyBlock</li>
+                                <li><i class="fas fa-check" style="color: #FF7F00;"></i> Возможность стать модератором</li>
+                                <li><i class="fas fa-check" style="color: #FF7F00;"></i> Эксклюзивный доступ к бета-тестам</li>
+                            </ul>
+                        </div>
+                        <div class="tier-action">
+                            <button class="mc-button" onclick="selectTier('Trainee', 499)">Купить за 499₽</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="server-info">
+            <div class="container">
+                <h3>Присоединяйтесь к нашему серверу Minecraft</h3>
+                <p>Скопируйте IP-адрес ниже, чтобы подключиться к серверу OreBox</p>
+                <div class="server-ip" id="server-ip">play.orebox-minecraft.ru</div>
+                <p style="margin-top: 20px; color: #aaa;">После покупки доната привилегии активируются автоматически в течение 5 минут</p>
+            </div>
+        </section>
+        
+        <footer>
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-section">
+                        <h3>OreBox Minecraft</h3>
+                        <p>Сервер Minecraft с уникальным геймплеем, мини-играми и дружным комьюнити. Присоединяйся к нам!</p>
+                        <div class="payment-methods">
+                            <div class="payment-method"><i class="fab fa-cc-visa"></i> Visa</div>
+                            <div class="payment-method"><i class="fab fa-cc-mastercard"></i> MasterCard</div>
+                            <div class="payment-method"><i class="fab fa-qiwi"></i> Qiwi</div>
+                            <div class="payment-method"><i class="fas fa-mobile-alt"></i> Мобильные</div>
+                        </div>
+                    </div>
+                    
+                    <div class="footer-section">
+                        <h3>Быстрые ссылки</h3>
+                        <ul class="footer-links">
+                            <li><a href="#"><i class="fas fa-server"></i> Подключиться к серверу</a></li>
